@@ -19,4 +19,9 @@
 			,#{dateDir}
 		)
 	</insert>
+	
+	<select id="findByPost" parameterType="java.lang.Long" resultType="com.mvc.spring.dto.PostResponseDTO">
+		SELECT * FROM TB_POSTS
+		WHERE id = #{id}
+	</select>
 </mapper>

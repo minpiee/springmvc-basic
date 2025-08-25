@@ -3,11 +3,13 @@ package com.mvc.spring.controller;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.mvc.spring.dto.PostCreateRequestDTO;
+import com.mvc.spring.dto.PostResponseDTO;
 import com.mvc.spring.service.PostService;
 
 @Controller
@@ -46,5 +48,12 @@ public class PostController {
 			redirectAttributes.addFlashAttribute("message", "게시글 등록에 실패했습니다.");
 			return "redirect:/posts/new";
 		}
+	}
+
+	@RequestMapping(value = "/{id}", method = RequestMethod.GET)
+	public String getPost(@PathVariable Long id, Model model) {
+		PostResponseDTO postResponseDTO = postService.getPost(id);
+		model.addAttribute("postResponseDTO", postResponseDTO);
+		return "post/detail";
 	}
 }

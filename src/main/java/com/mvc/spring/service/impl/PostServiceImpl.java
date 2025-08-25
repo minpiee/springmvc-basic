@@ -8,6 +8,7 @@ import org.springframework.transaction.annotation.Transactional;
 import com.mvc.spring.dao.PostDAO;
 import com.mvc.spring.dto.FileDTO;
 import com.mvc.spring.dto.PostCreateRequestDTO;
+import com.mvc.spring.dto.PostResponseDTO;
 import com.mvc.spring.file.FileStorage;
 import com.mvc.spring.service.PostService;
 
@@ -55,5 +56,10 @@ public class PostServiceImpl implements PostService {
 			}
 			throw e;
 		}
+	}
+
+	@Override
+	public PostResponseDTO getPost(Long id) {
+		return postDAO.findByPost(id);
 	}
 }
