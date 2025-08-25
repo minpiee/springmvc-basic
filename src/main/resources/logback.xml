@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+
+	<!-- 로그 설정에 사용할 변수 정의 -->
+	<!-- 로그 파일 저장 경로, 기본값: 'logs' -->
+	<property name="LOG_PATH" value="${LOG_PATH:-logs}" />
+	<!-- 로그 파일 기본 이름, app.log -->
+	<property name="LOG_FILE_NAME" value="app" />
+
+	<!-- 콘솔에 출력되는 로그 형식 설정 -->
+	<appender name="console" class="ch.qos.logback.core.ConsoleAppender">
+		<encoder>
+			<pattern>%d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg%n</pattern>
+			<charset>UTF-8</charset>
+		</encoder>
+	</appender>
+
+	<!-- 일반 로그 파일 설정 -->
+	<appender name="file" class="ch.qos.logback.core.rolling.RollingFileAppender">
+		<!-- 애플리케이션 실행 중에는 logs/app.log에 기록 -->
+		<file>${LOG_PATH}/${LOG_FILE_NAME}.log</file>
+		<rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+			<!-- 하루마다 분리해 저장 (logs/app.2025-08-22.log) -->
+			<fileNamePattern>${LOG_PATH}/${LOG_FILE_NAME}.%d{yyyy-MM-dd}.log</fileNamePattern>
+			<!-- 로그 파일을 최대 14일까지만 보관 -->
+			<maxHistory>14</maxHistory>
+		</rollingPolicy>
+		<encoder>
+			<pattern>%d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg%n</pattern>
+			<charset>UTF-8</charset>
+		</encoder>
+	</appender>
+
+	<!-- 에러 로그 파일 설정 -->
+	<appender name="errorFile" class="ch.qos.logback.core.rolling.RollingFileAppender">
+		<!-- 애플리케이션 실행 중에는 logs/error.log에 기록 -->
+		<file>${LOG_PATH}/error.log</file>
+		<rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+			<!-- 하루마다 분리해 저장 (logs/error.2025-08-22.log) -->
+			<fileNamePattern>${LOG_PATH}/error.%d{yyyy-MM-dd}.log</fileNamePattern>
+			<!-- 로그 파일을 최대 30일까지만 보관 -->
+			<maxHistory>30</maxHistory>
+		</rollingPolicy>
+		<!-- ERROR 레벨 이상만 기록 -->
+		<filter class="ch.qos.logback.classic.filter.ThresholdFilter">
+			<level>ERROR</level>
+		</filter>
+		<encoder>
+			<pattern>%d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg%n</pattern>
+			<charset>UTF-8</charset>
+		</encoder>
+	</appender>
+
+	<!-- INFO 이상 로그를 콘솔, 파일, 에러파일에 기록 -->
+	<root level="INFO">
+		<appender-ref ref="console" />
+		<appender-ref ref="file" />
+		<appender-ref ref="errorFile" />
+	</root>
+
+</configuration>
