@@ -1,7 +1,6 @@
 package com.mvc.spring.dto;
 
-import org.springframework.web.multipart.MultipartFile;
-
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -9,13 +8,8 @@ import lombok.Setter;
 @Getter
 @Setter
 @NoArgsConstructor
-public class PostCreateRequestDTO {
-
-	private Long id;                 // 글 ID
-	private String title;            // 글 제목
-	private String content;          // 글 내용
-
-	private MultipartFile imageFile; // 이미지 파일
+@AllArgsConstructor
+public class FileDTO {
 	private String originalFilename; // 사용자가 업로드한 원본 파일명
 	private String storedFilename;   // 서버에 저장된 파일명 (예: UUID.확장자)
 	private String dateDir;          // 날짜 기반 디렉터리

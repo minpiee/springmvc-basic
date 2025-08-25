@@ -7,10 +7,16 @@
 		INSERT INTO TB_POSTS (
 			 title
 			,content
+			,original_filename
+			,stored_filename
+			,date_dir
 		)
 		VALUES (
 			 #{title}
 			,#{content}
+			,#{originalFilename}
+			,#{storedFilename}
+			,#{dateDir}
 		)
 	</insert>
 </mapper>

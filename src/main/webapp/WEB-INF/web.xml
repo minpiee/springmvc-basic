@@ -8,6 +8,12 @@
 		<param-name>contextConfigLocation</param-name>
 		<param-value>/WEB-INF/spring/root-context.xml</param-value>
 	</context-param>
+	
+	<!-- 이미지 파일 업로드 경로 설정 -->
+	<context-param>
+		<param-name>uploadDir</param-name>
+		<param-value>C:/upload</param-value>
+	</context-param>
 
 	<listener>
 		<listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
@@ -21,6 +27,16 @@
 			<param-value>/WEB-INF/spring/appServlet/servlet-context.xml</param-value>
 		</init-param>
 		<load-on-startup>1</load-on-startup>
+		
+		<!-- 파일 업로드 관련 설정 -->
+		<multipart-config>
+			<!-- 업로드할 수 있는 한 개 파일의 최대 크기: 20MB -->
+			<max-file-size>20971520</max-file-size>
+			<!-- 여러 파일을 한 번에 업로드할 때 최대 크기: 50MB -->
+			<max-request-size>52428800</max-request-size>
+			<!-- 업로드되는 파일이 1MB 이하면 메모리, 초과하면 서버의 임시 디렉터리에 저장 -->
+			<file-size-threshold>1048576</file-size-threshold>
+		</multipart-config>
 	</servlet>
 
 	<servlet-mapping>
